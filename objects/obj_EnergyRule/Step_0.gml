@@ -15,6 +15,16 @@ if (!triggered) {
 
         // Silencio total durante el apagón.
         audio_stop_all();
+
+        // Congelar el reloj y al Prismoso: la ronda termina por esta regla.
+        with (obj_WinTimer) {
+            alarm[0] = -1;
+        }
+        with (obj_PM) {
+            alarm[0] = -1;
+            alarm[1] = -1;
+            alarm[2] = -1;
+        }
     }
 } else {
     blackout_timer -= 1;
