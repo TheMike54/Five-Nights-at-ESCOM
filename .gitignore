@@ -1,0 +1,30 @@
+# Configuración personal de Claude Code
+CLAUDE.local.md
+.claude/settings.local.json
+pr-body.md
+
+# Secretos y archivos de firma
+.env
+.env.*
+*.jks
+*.keystore
+*.pem
+*.key
+*.p12
+google-services.json
+local.properties
+
+# Exportaciones y compilados
+*.apk
+*.aab
+*.yyz
+*.zip
+
+# Sistema operativo y editores
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/
+*.bak
+*.tmp

@@ -1,0 +1,116 @@
+name: CI
+
+# GameMaker no se puede compilar en GitHub Actions (requiere el IDE y su licencia),
+# asi que esta CI hace verificaciones estaticas. La ejecucion del juego es QA manual
+# y se documenta en cada Pull Request (seccion "QA evidence").
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  convenciones:
+    name: Convenciones de rama y commits
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Nombre de la rama
+        env:
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          if [[ ! "$BRANCH" =~ ^(feature|fix|docs|chore)/[a-z0-9._-]+$ ]]; then
+            echo "::error::La rama '$BRANCH' debe llamarse feature/..., fix/..., docs/... o chore/... (minusculas, numeros, guiones)"
+            exit 1
+          fi
+
+      - name: Mensajes de commit
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          # Solo los commits propios de la rama: los que no estan en la base actual.
+          # (Un rango base.sha..head incluiria commits ya integrados que llegaron con git merge origin/main.)
+          git fetch --quiet origin "$BASE_REF"
+          fail=0
+          while IFS= read -r sha; do
+            subject=$(git log -1 --format=%s "$sha")
+            body=$(git log -1 --format=%B "$sha")
+            if [[ "$subject" =~ ^Merge\  ]]; then continue; fi
+            if [[ ! "$subject" =~ ^(feat|fix|docs|chore|test|refactor|style|perf)(\([a-z0-9._-]+\))?:\ .+ ]]; then
+              echo "::error::Commit $sha con mensaje fuera de formato: '$subject' (usa 'tipo: descripcion', p. ej. 'feat: add energy drain')"
+              fail=1
+            fi
+            if echo "$subject" | grep -qiE '^(feat|fix|docs|chore|test|refactor|style|perf)(\(.+\))?: *(update|changes?|cambios|wip|version final|final)\.?$'; then
+              echo "::error::Commit $sha con mensaje sin intencion tecnica: '$subject'"
+              fail=1
+            fi
+            if echo "$body" | grep -qiE '^co-authored-by:.*(claude|anthropic|copilot|gemini|openai|chatgpt)'; then
+              echo "::error::Commit $sha incluye una linea Co-Authored-By de una IA"
+              fail=1
+            fi
+          done < <(git rev-list --no-merges "$HEAD" "^origin/$BASE_REF")
+          exit $fail
+
+  archivos:
+    name: Archivos prohibidos y tamanos
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extensiones prohibidas
+        run: |
+          found=$(git ls-files | grep -iE '(\.jks|\.keystore|\.pem|\.key|\.p12|(^|/)\.env(\..*)?|(^|/)google-services\.json|(^|/)local\.properties)$' || true)
+          if [[ -n "$found" ]]; then
+            echo "::error::Archivos que nunca deben versionarse:"
+            echo "$found"
+            exit 1
+          fi
+
+      - name: Tamano maximo por archivo (50 MB)
+        run: |
+          big=$(git ls-files -z | xargs -0 stat -c '%s %n' | awk '$1 > 52428800 { $1=""; print substr($0,2) }')
+          if [[ -n "$big" ]]; then
+            echo "::error::Archivos de mas de 50 MB:"
+            echo "$big"
+            exit 1
+          fi
+
+  secretos:
+    name: Busqueda de secretos
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  gamemaker:
+    name: Proyecto GameMaker legible
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install json5
+      - run: python .github/scripts/check_gamemaker.py .
+      - name: Energia inicial intacta (sin valores de prueba)
+        run: |
+          if ! grep -q 'global.Bateria = 14400;' objects/obj_Culturales1/Create_0.gml; then
+            echo "::error::objects/obj_Culturales1/Create_0.gml debe conservar 'global.Bateria = 14400;' (no subir valores de prueba)"
+            exit 1
+          fi
