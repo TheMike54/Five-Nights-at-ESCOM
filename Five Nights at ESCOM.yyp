@@ -131,7 +131,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2022.0.3.85",
+    "IDEVersion":"2026.0.0.16",
   },
   "name":"Five Nights at ESCOM",
   "resources":[
@@ -177,6 +177,7 @@
     {"id":{"name":"obj_DGlitch","path":"objects/obj_DGlitch/obj_DGlitch.yy",},},
     {"id":{"name":"obj_Dots","path":"objects/obj_Dots/obj_Dots.yy",},},
     {"id":{"name":"obj_EmptyBat","path":"objects/obj_EmptyBat/obj_EmptyBat.yy",},},
+    {"id":{"name":"obj_EnergyRule","path":"objects/obj_EnergyRule/obj_EnergyRule.yy",},},
     {"id":{"name":"obj_Extras","path":"objects/obj_Extras/obj_Extras.yy",},},
     {"id":{"name":"obj_GOManager","path":"objects/obj_GOManager/obj_GOManager.yy",},},
     {"id":{"name":"obj_GOStatic","path":"objects/obj_GOStatic/obj_GOStatic.yy",},},
