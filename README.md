@@ -104,3 +104,34 @@ las exportaciones se generan desde el proyecto, así que no hace falta guardarla
 - `docs/arquitectura.md`, `docs/pruebas.md` y `docs/licencias.md`: arquitectura, pruebas y
   licencias del proyecto.
 - `docs/evidencia/entrega-1/`: una captura por integrante con el juego corriendo.
+
+## Entrega 1
+
+La característica de la Parte 3 (la ronda termina al agotarse la energía) se puede recorrer de
+principio a fin:
+
+| Paso | Liga |
+|---|---|
+| Issue con el criterio de aceptación | [#2](https://github.com/TheMike54/Five-Nights-at-ESCOM/issues/2) |
+| Pull Request, con la descripción en inglés y la evidencia de QA | [#5](https://github.com/TheMike54/Five-Nights-at-ESCOM/pull/5) |
+| Ejecución de la integración continua del PR | [CI #20](https://github.com/TheMike54/Five-Nights-at-ESCOM/actions/runs/37255605132) |
+| Etiqueta del commit integrado | [`parcial-1`](https://github.com/TheMike54/Five-Nights-at-ESCOM/releases/tag/parcial-1) |
+
+### Historial de commits del PR
+
+Los tres integrantes tienen commits de lógica y de su captura de ejecución.
+
+![Commits del PR #5](docs/evidencia/entrega-1/historial-commits.jpg)
+
+### Integración continua
+
+Los cuatro checks en verde sobre el último commit del PR.
+
+![Ejecución de la CI del PR #5](docs/evidencia/entrega-1/ci-pr5.jpg)
+
+### Conversación de revisión
+
+Comentario de Ian sobre `objects/obj_EnergyRule/Create_0.gml` con su prueba del caso F2, y la
+respuesta del autor.
+
+![Comentario de revisión y respuesta en el PR #5](docs/evidencia/entrega-1/revision-pr5.jpg)
