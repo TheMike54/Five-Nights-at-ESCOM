@@ -5,9 +5,8 @@
 | Elemento | Licencia | Fuente |
 |---|---|---|
 | Código del proyecto base | Sin licencia declarada en el repositorio original | https://github.com/gabrielhuav/Five-Nights-at-ESCOM |
-| Cambios del equipo | MIT | Este repositorio |
 
-La licencia de los cambios del equipo aplica solo a lo que el equipo escribió (por ejemplo, el objeto `obj_EnergyRule` y los documentos de `docs/`). El código y los recursos del proyecto base conservan la situación indicada en la tabla: el repositorio original no declara licencia ni autoría por recurso.
+El repositorio no incluye un archivo `LICENSE`: el equipo no declara una licencia para sus cambios (por ejemplo, el objeto `obj_EnergyRule` y los documentos de `docs/`). El código y los recursos del proyecto base conservan la situación indicada en la tabla: el repositorio original no declara licencia ni autoría por recurso.
 
 ## Recursos externos
 
