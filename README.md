@@ -57,6 +57,15 @@ El juego no usa JDK, Android SDK ni servicios externos: todo corre en la computa
 
 Resultado: el juego compila y corre completo (menú, oficina, cámaras, láser y video del jumpscare).
 
+### Víctor Moreno López
+
+| Problema | Qué se intentó | Solución |
+|---|---|---|
+| Al verificar el instalador de GameMaker con `Get-FileHash .\GameMaker-Installer-2026.0.0.16.exe -Algorithm SHA256`, PowerShell respondió que no encontraba el archivo | Correr el mismo comando otra vez | La terminal estaba abierta en otra carpeta y `.\` busca el archivo en la carpeta actual: el comando se corre en la carpeta donde se descargó el instalador. La versión instalada se confirmó en el propio IDE (v2026.0.0.16, runtime 2026.0.0.23) |
+| Al abrir GameMaker LTS 2026 se eligió *Nuevo* y apareció la pantalla para crear un proyecto nuevo ("Select project type") | — | Cerrar ese panel y usar *Abrir* → `Five Nights at ESCOM.yyp` |
+
+Resultado: el juego compila y corre (menú, oficina, cámaras, láser, jumpscare y la regla de energía con el apagón).
+
 ## Integración continua
 
 `.github/workflows/ci.yml` corre en cada Pull Request hacia `main` y en cada push a `main`.
