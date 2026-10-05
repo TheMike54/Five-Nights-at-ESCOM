@@ -66,6 +66,14 @@ Resultado: el juego compila y corre completo (menú, oficina, cámaras, láser y
 
 Resultado: el juego compila y corre (menú, oficina, cámaras, láser, jumpscare y la regla de energía con el apagón).
 
+### Ian Gael Reyna Mendoza
+
+| Problema | Qué se intentó | Solución |
+|---|---|---|
+| Al abrir `Five Nights at ESCOM.yyp` en GameMaker LTS 2026.0.0.16 apareció el aviso "This project is of an older format and will need to be converted" | Cancelar la conversión, porque la carpeta estaba en una rama que todavía tenía el formato 2022 | Cambiar a la rama con la conversión (`gh pr checkout 1`): el proyecto abrió sin pedir conversión y corrió con F5. Con la conversión ya integrada en `main`, un clon nuevo abre sin este aviso |
+
+Resultado: el juego compila y corre; los casos probados están en `docs/pruebas.md`.
+
 ## Integración continua
 
 `.github/workflows/ci.yml` corre en cada Pull Request hacia `main` y en cada push a `main`.
