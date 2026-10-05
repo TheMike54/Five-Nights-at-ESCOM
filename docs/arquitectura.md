@@ -81,3 +81,102 @@ juego viene del propio motor de GameMaker (dibujo, audio y `video_open` para el 
 **Qué corre en el dispositivo.** Todo. El juego no usa red, no guarda partidas y no lee archivos
 externos: el motor ejecuta los eventos 60 veces por segundo en la computadora del jugador y los
 recursos van empaquetados en el ejecutable.
+
+## 3. Recorrido de una funcionalidad: la energía
+
+La energía es un contador que empieza en 14 400 y baja 1 por cada paso (1/60 de segundo) que esté
+activo un consumidor: las cámaras arriba o el láser encendido. Con un consumidor dura 4 minutos;
+con los dos, 2 minutos.
+
+**1. Inicio.** Al entrar a la oficina, `objects/obj_Culturales1/Create_0.gml` llena la energía y la
+barra:
+
+```gml
+global.Bateria = 14400;
+global.BatLaser = 0;
+global.BatConteo = 5;
+global.BatCamara = 0;
+```
+
+**2. Activación.** Al tocar el botón del láser, `objects/obj_CLaserButton/Gesture_0.gml` prende la
+bandera del consumidor, pero solo si todavía queda energía en la barra (`obj_ButtonDown` hace lo
+mismo con `global.BatCamara` para las cámaras):
+
+```gml
+if(global.BatConteo > 0)
+{
+	if(global.Laser == 0)
+	{
+		audio_play_sound(snd_Laser, 0, 1, 1.0, undefined, 1.0);
+		global.Laser = 1;
+		global.BatLaser = 1;
+		...
+	}
+	else { ... global.Laser = 0; global.BatLaser = 0; ... }
+}
+else
+{
+	audio_play_sound(snd_EmptyButton, 0, 0, 1.0, undefined, 1.0);
+}
+```
+
+**3. Consumo.** En cada paso, `objects/obj_BatCamara/Step_2.gml` resta 1 si las cámaras están
+arriba. `obj_BatLaser` es idéntico para el láser, por eso con los dos activos la energía baja 2 por
+paso:
+
+```gml
+if(global.BatCamara == 1)
+{
+	global.Bateria = global.Bateria-1;
+}
+```
+
+**4. Niveles y agotamiento.** `objects/obj_BatCheck/Step_2.gml` compara la energía con valores
+exactos: cada 2 880 unidades baja un nivel de la barra, y en 0 apaga cámaras y láser:
+
+```gml
+var l0184DB3D_0 = global.Bateria;
+switch(l0184DB3D_0)
+{
+	case 0:
+		audio_stop_sound(snd_Laser);
+		global.BatConteo = 0;
+		global.blockCam = 0;
+		global.Laser = 0;
+		global.BatCamara = 0;
+		global.BatLaser = 0;
+		global.CambioCamara = 0;
+		global.CameraUp = 0;
+		...
+		break;
+	case 2880:  global.BatConteo = 1; break;
+	case 5760:  global.BatConteo = 2; break;
+	case 8640:  global.BatConteo = 3; break;
+	case 11520: global.BatConteo = 4; break;
+}
+```
+
+**5. Barra.** `objects/obj_Bat/Step_2.gml` lee `global.BatConteo` y muestra el sprite del nivel;
+en 0 se muestra la batería vacía.
+
+**Lo que pasaba al llegar a 0.** Nada más: cámaras y láser quedaban inertes, pero el Prismoso
+seguía caminando y el reloj seguía, así que todavía se podía ganar a las 6 AM sin energía. Además,
+como la comparación es exacta y con dos consumidores la energía baja de 2 en 2, el contador puede
+saltarse el 0 y quedar negativo, y entonces la barra nunca llega a vacía.
+
+**Qué archivos cambian para que la ronda termine al agotarse la energía.** En lugar de editar
+`obj_BatCheck` (que está hecho con bloques y cuyos diffs serían difíciles de revisar), se agregó un
+objeto nuevo escrito en GML:
+
+| Archivo | Cambio |
+|---|---|
+| `objects/obj_EnergyRule/obj_EnergyRule.yy` | Objeto nuevo con cuatro eventos |
+| `objects/obj_EnergyRule/Create_0.gml` | Umbral de energía y duración del apagón (180 pasos = 3 s) |
+| `objects/obj_EnergyRule/Step_1.gml` | Corrige la energía negativa antes de que nadie la lea |
+| `objects/obj_EnergyRule/Step_0.gml` | Detecta el 0, apaga controles y sonido, congela el reloj y al Prismoso, y al terminar el apagón manda al game over |
+| `objects/obj_EnergyRule/Draw_64.gml` | Dibuja la pantalla negra del apagón |
+| `rooms/Culturales1/Culturales1.yy` | Coloca una instancia del objeto en la oficina |
+| `Five Nights at ESCOM.yyp` y `.resource_order` | Registran el objeto nuevo |
+
+No se modificó ningún archivo existente de lógica: el objeto nuevo lee y escribe las mismas
+variables globales que ya usaba el juego.
