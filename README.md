@@ -45,6 +45,13 @@ El juego no usa JDK, Android SDK ni servicios externos: todo corre en la computa
    sesión no ejecuta). La primera compilación tarda unos minutos; al terminar aparece el menú del
    juego.
 
+Al elegir *Nuevo Juego* empieza la noche en la oficina, con la hora arriba a la izquierda y la
+batería abajo a la derecha (capturas de Ian Gael Reyna Mendoza, caso 1 de `docs/pruebas.md`):
+
+![Oficina con el Prismoso en la puerta](docs/capturas/caso1-juego-corriendo-2.png)
+
+![El Prismoso en la oficina](docs/capturas/caso1-juego-corriendo-1.png)
+
 ## Problemas de la primera ejecución
 
 ### Miguel Ángel Rodríguez Candelario
@@ -58,6 +65,24 @@ El juego no usa JDK, Android SDK ni servicios externos: todo corre en la computa
 
 Resultado: el juego compila y corre completo (menú, oficina, cámaras, láser y video del jumpscare).
 
+GameMaker 2022.0.3.85 se queda en la ventana de inicio de sesión:
+
+![Inicio de sesión de GameMaker 2022](docs/capturas/primera-ejecucion/rodriguez-01-login-gamemaker-2022.png)
+
+En la LTS 2026 aparece el aviso de conversión y la herramienta de proyecto la hace:
+
+![Aviso de conversión de formato](docs/capturas/primera-ejecucion/rodriguez-02-aviso-conversion.png)
+
+![Conversión del proyecto en curso](docs/capturas/primera-ejecucion/rodriguez-03-conversion-en-curso.png)
+
+Ya convertido, el juego corre desde el IDE:
+
+![Menú del juego corriendo en GameMaker LTS 2026](docs/capturas/primera-ejecucion/rodriguez-04-juego-corriendo-lts2026.png)
+
+Captura de ejecución con la cuenta de Git configurada:
+
+![Ejecución de Miguel Ángel Rodríguez Candelario](docs/evidencia/entrega-1/rodriguez-miguel-entrega1.png)
+
 ### Víctor Moreno López
 
 | Problema | Qué se intentó | Solución |
@@ -67,6 +92,18 @@ Resultado: el juego compila y corre completo (menú, oficina, cámaras, láser y
 
 Resultado: el juego compila y corre (menú, oficina, cámaras, láser, jumpscare y la regla de energía con el apagón).
 
+`Get-FileHash` corrido desde `C:\WINDOWS\System32`, donde no está el instalador:
+
+![Error de Get-FileHash por la carpeta actual](docs/capturas/primera-ejecucion/moreno-01-get-filehash.png)
+
+La pantalla que abre *Nuevo* en lugar de *Abrir*:
+
+![Pantalla Select project type de GameMaker](docs/capturas/primera-ejecucion/moreno-02-nuevo-en-vez-de-abrir.png)
+
+Captura de ejecución con la cuenta de Git configurada:
+
+![Ejecución de Víctor Moreno López](docs/evidencia/entrega-1/moreno-victor-entrega1.png)
+
 ### Ian Gael Reyna Mendoza
 
 | Problema | Qué se intentó | Solución |
@@ -74,6 +111,10 @@ Resultado: el juego compila y corre (menú, oficina, cámaras, láser, jumpscare
 | Al abrir `Five Nights at ESCOM.yyp` en GameMaker LTS 2026.0.0.16 apareció el aviso "This project is of an older format and will need to be converted" | Cancelar la conversión, porque la carpeta estaba en una rama que todavía tenía el formato 2022 | Cambiar a la rama con la conversión (`gh pr checkout 1`): el proyecto abrió sin pedir conversión y corrió con F5. Con la conversión ya integrada en `main`, un clon nuevo abre sin este aviso |
 
 Resultado: el juego compila y corre; los casos probados están en `docs/pruebas.md`.
+
+Captura de ejecución con la cuenta de Git configurada:
+
+![Ejecución de Ian Gael Reyna Mendoza](docs/evidencia/entrega-1/reyna-ian-entrega1.png)
 
 ## Integración continua
 
@@ -105,6 +146,10 @@ las exportaciones se generan desde el proyecto, así que no hace falta guardarla
   licencias del proyecto.
 - `docs/evidencia/entrega-1/`: una captura por integrante con el juego corriendo.
 
+Diagrama de arquitectura (explicado en `docs/arquitectura.md`):
+
+![Diagrama de arquitectura](docs/img/arquitectura.png)
+
 ## Entrega 1
 
 La característica de la Parte 3 (la ronda termina al agotarse la energía) se puede recorrer de
@@ -116,6 +161,16 @@ principio a fin:
 | Pull Request, con la descripción en inglés y la evidencia de QA | [#5](https://github.com/TheMike54/Five-Nights-at-ESCOM/pull/5) |
 | Ejecución de la integración continua del PR | [CI #20](https://github.com/TheMike54/Five-Nights-at-ESCOM/actions/runs/37255605132) |
 | Etiqueta del commit integrado | [`parcial-1`](https://github.com/TheMike54/Five-Nights-at-ESCOM/releases/tag/parcial-1) |
+
+### La regla en el juego
+
+Antes del cambio, al llegar la energía a 0 la noche seguía y se podía ganar sin energía. Con
+`obj_EnergyRule`, la pantalla se apaga unos 3 segundos y la ronda termina en el game over
+(capturas de Víctor Moreno López, casos F1 a F6 de `docs/pruebas.md`):
+
+![Apagón al agotarse la energía](docs/capturas/regla-energia/apagon.png)
+
+![Game over después del apagón](docs/capturas/regla-energia/game-over-por-energia.png)
 
 ### Historial de commits del PR
 
