@@ -38,10 +38,11 @@ El juego no usa JDK, Android SDK ni servicios externos: todo corre en la computa
    ```
 3. Instala **GameMaker LTS 2026.0.0.16** desde la página oficial de GameMaker (sección de
    versiones LTS). Al instalar no aceptes actualizar a otra versión.
-4. Abre GameMaker e **inicia sesión** con tu cuenta de GameMaker (es obligatorio para ejecutar).
+4. Abre GameMaker.
 5. *Open* → `C:\FNAE\Five-Nights-at-ESCOM\Five Nights at ESCOM.yyp`. Debe abrir **sin** pedir
    conversión; si la pide, abriste otra carpeta.
-6. Presiona **F5**. La primera compilación tarda unos minutos; al terminar aparece el menú del
+6. Presiona **F5**. Si GameMaker pide **iniciar sesión**, entra con tu cuenta de GameMaker (sin
+   sesión no ejecuta). La primera compilación tarda unos minutos; al terminar aparece el menú del
    juego.
 
 ## Problemas de la primera ejecución
@@ -91,7 +92,7 @@ Queda como **QA manual**: compilar con F5 y jugar los casos de `docs/pruebas.md`
 
 ## `.gitignore`
 
-El repositorio base no tenía `.gitignore`. El nuestro excluye: configuración personal de Claude
+El repositorio base no tenía `.gitignore`. El nuestro excluye, entre otros: configuración personal de Claude
 Code (`CLAUDE.local.md`), secretos y archivos de firma (`.env`, `*.jks`, `*.keystore`, `*.pem`,
 `*.key`, `*.p12`), exportaciones del juego (`*.apk`, `*.aab`, `*.yyz`, `*.zip`) y archivos del
 sistema o del editor (`Thumbs.db`, `.vscode/`, `*.tmp`). Los secretos nunca deben versionarse, y
