@@ -12,10 +12,27 @@ Plataforma de referencia: Windows 11 Home 25H2 (compilación 26200.9457), GameMa
 
 Capturas de los casos 1 y 5 en `docs/capturas/`: `caso1-juego-corriendo-1.png`, `caso1-juego-corriendo-2.png`, `caso5-escala-125-1.png`, `caso5-escala-125-2.png` y `caso5-escala-125-3.png`.
 
+## Casos de la característica: la ronda termina al agotarse la energía (PR #5)
+
+Plataforma: Windows 11, GameMaker IDE 2026.0.0.16 con Runtime 2026.0.0.23, commit `141f5e7` de la rama `feature/2-energy-ends-round`. Pruebas ejecutadas el 4 de octubre de 2026.
+
+| # | Caso | Plataforma | Pasos | Resultado esperado | Resultado real | Estado | Issue |
+|---|---|---|---|---|---|---|---|
+| F1 | Ruta feliz | Windows 11, GameMaker LTS 2026.0.0.16 | 1. Nuevo juego. 2. En la oficina, subir solo las cámaras y dejarlas arriba hasta que se acabe la energía. | La pantalla se queda en negro y, en menos de 5 s, aparece el game over y se regresa al menú. | La pantalla quedó en negro 3 s; después se mostró el jumpscare, la pantalla de fin de partida y el menú principal. | ✅ | — |
+| F2 | Dos consumidores (estado alterno) | Windows 11, GameMaker LTS 2026.0.0.16 | 1. Nuevo juego. 2. Encender el láser y subir las cámaras a la vez. 3. Esperar a que se acabe la energía. | Mismo resultado que F1; la energía nunca queda negativa. | Misma secuencia que F1 (3 s en negro, game over y menú). Con el valor normal de energía también terminó la ronda, después de unos minutos y con los 3 s en negro antes del game over. La barra de energía se quedó llena todo el tiempo: es el defecto #7, que esta característica no cambia. | ✅ | [#7](https://github.com/TheMike54/Five-Nights-at-ESCOM/issues/7) |
+| F3 | Disparo único | Windows 11, GameMaker LTS 2026.0.0.16 | 1. Durante la pantalla negra de F1 o F2, pulsar los botones de cámaras y láser. | No pasa nada distinto y hay un solo game over. | Ningún botón responde durante la pantalla negra; hubo un solo game over. | ✅ | — |
+| F4 | Sin agotar la energía | Windows 11, GameMaker LTS 2026.0.0.16 | 1. Nuevo juego. 2. Jugar la noche completa sin subir las cámaras y usando el láser solo cuando el Prismoso está en la puerta. | Se gana a las 6 AM y la regla no se dispara. | Se llegó a las 6 AM y a la pantalla de victoria, sin pantalla negra durante la noche. | ✅ | — |
+| F5 | Recreación | Windows 11, GameMaker LTS 2026.0.0.16 | 1. Tras un game over por energía, pulsar "Nuevo Juego". | La noche empieza con la energía llena y los controles normales. | La noche empezó a las 10 PM con la batería llena y los controles funcionando. | ✅ | — |
+| F6 | Carrera con el reloj | — | 1. Nuevo juego. 2. Subir las cámaras a partir del minuto 5:00. | Gana el apagón: game over, no victoria. | No se pudo ejecutar como está escrito: si no se usa el láser, el Prismoso llega a la puerta en segundos y termina la partida antes del minuto 5:00. | No ejecutable | — |
+
+F1 y F2 se ejecutaron con la energía inicial bajada temporalmente a 600 en el evento Create de `obj_Culturales1`, para que se agotara en segundos (con el valor normal el Prismoso llega antes a la puerta). El valor se regresó a 14400 antes de cualquier commit. Los videos de F1 y F2 están en la descripción del PR #5.
+
+Capturas: `docs/capturas/f4-victoria.png` (F4) y `docs/capturas/f5-bateria-llena.png` (F5).
+
 ## Defectos encontrados durante las pruebas
 
 | Issue | Defecto | Dónde se observó |
 |---|---|---|
 | [#6](https://github.com/TheMike54/Five-Nights-at-ESCOM/issues/6) | El video del game over no se reproduce en una de cada dos derrotas de una misma ejecución | Caso 3 |
-| [#7](https://github.com/TheMike54/Five-Nights-at-ESCOM/issues/7) | La barra de energía no baja con cámaras y láser activos a la vez | Caso 2 |
+| [#7](https://github.com/TheMike54/Five-Nights-at-ESCOM/issues/7) | La barra de energía no baja con cámaras y láser activos a la vez | Casos 2 y F2 |
 | [#8](https://github.com/TheMike54/Five-Nights-at-ESCOM/issues/8) | La cámara 19 muestra la imagen de la cámara 18 | Revisión de las cámaras durante el caso 1 |

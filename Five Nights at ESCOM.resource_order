@@ -39,6 +39,7 @@
     {"name":"obj_DGlitch","order":8,"path":"objects/obj_DGlitch/obj_DGlitch.yy",},
     {"name":"obj_Dots","order":1,"path":"objects/obj_Dots/obj_Dots.yy",},
     {"name":"obj_EmptyBat","order":9,"path":"objects/obj_EmptyBat/obj_EmptyBat.yy",},
+    {"name":"obj_EnergyRule","order":13,"path":"objects/obj_EnergyRule/obj_EnergyRule.yy",},
     {"name":"obj_Extras","order":6,"path":"objects/obj_Extras/obj_Extras.yy",},
     {"name":"obj_GOManager","order":1,"path":"objects/obj_GOManager/obj_GOManager.yy",},
     {"name":"obj_GOStatic","order":2,"path":"objects/obj_GOStatic/obj_GOStatic.yy",},
