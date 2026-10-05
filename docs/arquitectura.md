@@ -12,7 +12,7 @@ cómo funciona la energía de principio a fin.
 |---|---|
 | `Five Nights at ESCOM.yyp` | Índice del proyecto: lista todos los recursos y el orden de las rooms. Lo escribe el IDE |
 | `Five Nights at ESCOM.resource_order` | Orden en que el IDE muestra los recursos |
-| `objects/` | 80 objetos. Cada objeto es una carpeta con su `.yy` (metadatos y lista de eventos) y un `.gml` por evento |
+| `objects/` | 81 objetos. Cada objeto es una carpeta con su `.yy` (metadatos y lista de eventos) y un `.gml` por evento |
 | `rooms/` | 10 rooms (pantallas del juego); su `.yy` lista las instancias de objetos que contiene |
 | `sprites/` | 860 sprites (imágenes y animaciones) |
 | `sounds/` | 210 sonidos |
