@@ -3,4 +3,7 @@
 /// @DnDHash : 74F54F49
 /// @DnDArgument : "room" "N1"
 /// @DnDSaveInfo : "room" "N1"
-room_goto(N1);
+if (habilitado) {
+    global.Noche = 2;
+    room_goto(N2);
+}

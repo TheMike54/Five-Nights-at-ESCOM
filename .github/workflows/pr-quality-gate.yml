@@ -1,0 +1,38 @@
+name: PR Quality Gate
+
+on:
+  pull_request:
+    branches: [ main ]
+
+# Nota sobre esta ruta (GameMaker / FiveNightsAtESCOM):
+# No es posible compilar ni correr el juego completo en GitHub Actions sin una
+# licencia de GameMaker y su runtime (Igor), que no esta disponible en un
+# runner gratuito. Por eso este workflow automatiza solo lo verificable sin el
+# motor: integridad del proyecto (que no falten recursos referenciados en el
+# .yyp) y que la documentacion de QA de la caracteristica se haya actualizado.
+# El resto del QA (ruta feliz, estados alternos, navegacion, accesibilidad) se
+# hace de forma manual, jugando el build local, y se documenta en
+# docs/evidencias/entrega1/PRUEBAS.md con evidencia (capturas) por cada caso.
+
+jobs:
+  validate-gamemaker-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate .yyp resource references
+        run: python3 tools/validate_project.py
+
+      - name: Check QA evidence was documented
+        run: |
+          if [ ! -s "docs/evidencias/entrega1/PRUEBAS.md" ]; then
+            echo "::error::docs/evidencias/entrega1/PRUEBAS.md esta vacio. Documenten el QA de esta caracteristica antes de marcar el PR como Ready for review."
+            exit 1
+          fi
+          echo "docs/evidencias/entrega1/PRUEBAS.md tiene contenido. OK."

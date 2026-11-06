@@ -1,6 +1,6 @@
 // Issue #2: complete the active night with Ctrl + Shift + N.
 // Use a pressed edge so holding N cannot repeat the action.
-if (room != Culturales1) exit;
+if (room != Culturales1 && room != N2) exit;
 if (global.Bateria <= 0) exit;
 if (variable_global_exists("EnergyBlackout")) {
     if (global.EnergyBlackout) exit;

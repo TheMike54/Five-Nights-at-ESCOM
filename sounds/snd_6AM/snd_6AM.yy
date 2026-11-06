@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":9.375146,
+  "duration":9.375148,
   "exportDir":"",
   "name":"snd_6AM",
   "parent":{

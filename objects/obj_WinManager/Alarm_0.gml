@@ -12,9 +12,15 @@ image_index = 0;
 /// @DnDArgument : "var" "SecWin"
 layer_sequence_destroy(SecWin);
 
-/// @DnDAction : YoYo Games.Instances.Set_Alarm
+/// @DnDAction : YoYo Games.Common.Execute_Code
 /// @DnDVersion : 1
-/// @DnDHash : 53F67F3E
-/// @DnDArgument : "steps" "426"
-/// @DnDArgument : "alarm" "1"
-alarm_set(1, 426);
+/// @DnDHash : 46E0F60A
+/// @DnDArgument : "code" "/// @description Execute Code$(13_10)if (global.Noche == 1) {$(13_10)    // Noche 1 ganada: volver al menú principal (Continuar ya queda habilitado)$(13_10)    alarm_set(4, 426);$(13_10)} else {$(13_10)    // Última noche disponible: mostrar los agradecimientos$(13_10)    alarm_set(1, 426);$(13_10)}"
+/// @description Execute Code
+if (global.Noche == 1) {
+    // Noche 1 ganada: volver al menú principal (Continuar ya queda habilitado)
+    alarm_set(4, 426);
+} else {
+    // Última noche disponible: mostrar los agradecimientos
+    alarm_set(1, 426);
+}

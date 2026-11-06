@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.194167,
+  "duration":0.19151928,
   "exportDir":"",
   "name":"snd_CamChng",
   "parent":{
