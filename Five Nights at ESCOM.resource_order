@@ -1,7 +1,6 @@
 {
   "FolderOrderSettings":[],
   "ResourceOrderSettings":[
-    {"name":"fnt_Privacidad","order":0,"path":"fonts/fnt_Privacidad/fnt_Privacidad.yy",},
     {"name":"MM1","order":2,"path":"objects/MM1/MM1.yy",},
     {"name":"MMT","order":3,"path":"objects/MMT/MMT.yy",},
     {"name":"obj_Bat","order":4,"path":"objects/obj_Bat/obj_Bat.yy",},

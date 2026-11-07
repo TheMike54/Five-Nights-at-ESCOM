@@ -7,7 +7,7 @@
   "option_android_arch_armv7":false,
   "option_android_arch_x86_64":false,
   "option_android_attribute_allow_backup":false,
-  "option_android_build_tools":"37.0.0",
+  "option_android_build_tools":"36.0.0",
   "option_android_compile_sdk":"36",
   "option_android_device_support":0,
   "option_android_display_layout":"LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT",
@@ -79,7 +79,7 @@
   "option_android_tv_isgame":true,
   "option_android_tv_supports_leanback":true,
   "option_android_use_facebook":false,
-  "option_android_version":"0.1.0",
+  "option_android_version":"0.1.1",
   "resourceType":"GMAndroidOptions",
   "resourceVersion":"2.0",
 }
