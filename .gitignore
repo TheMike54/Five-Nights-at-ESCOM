@@ -1,0 +1,17 @@
+# GameMaker local workspace and generated outputs
+*.yyc
+*.local
+*.aab
+*.apk
+
+# Signing material must remain outside this repository
+*.jks
+*.keystore
+*.p12
+*.pfx
+keystore.properties
+local.properties
+
+# Local operating-system files
+Thumbs.db
+.DS_Store

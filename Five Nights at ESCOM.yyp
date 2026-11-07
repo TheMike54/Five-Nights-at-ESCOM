@@ -135,6 +135,7 @@
   },
   "name":"Five Nights at ESCOM",
   "resources":[
+    {"id":{"name":"fnt_Privacidad","path":"fonts/fnt_Privacidad/fnt_Privacidad.yy",},},
     {"id":{"name":"MM1","path":"objects/MM1/MM1.yy",},},
     {"id":{"name":"MMT","path":"objects/MMT/MMT.yy",},},
     {"id":{"name":"obj_Bat","path":"objects/obj_Bat/obj_Bat.yy",},},

@@ -10,3 +10,8 @@ audio_stop_all();
 /// @DnDArgument : "loop" "1"
 /// @DnDSaveInfo : "soundid" "snd_MM"
 audio_play_sound(snd_MM, 0, 1, 1.0, undefined, 1.0);
+
+privacy_open = false;
+privacy_page = 0;
+// Keep the display awake only while the Android game is in the foreground.
+if (os_type == os_android) os_powersave_enable(false);

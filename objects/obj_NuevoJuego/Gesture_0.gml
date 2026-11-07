@@ -1,3 +1,8 @@
+if (instance_exists(obj_MM_Empty) && obj_MM_Empty.privacy_open) exit;
+
+// Starting a new game after playing Night 2 must reset the active night.
+global.Noche = 1;
+
 /// @DnDAction : YoYo Games.Common.Variable
 /// @DnDVersion : 1
 /// @DnDHash : 77082FEB
