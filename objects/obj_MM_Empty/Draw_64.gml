@@ -12,7 +12,10 @@ draw_set_valign(fa_top);
 
 if (!privacy_open) {
     draw_set_colour(c_white);
-    draw_text_transformed(75 * sx, 615 * sy, "Privacidad", 1.7 * sx, 1.7 * sy, 0);
+    // Hidden while the options panel covers the menu.
+    if (!(instance_exists(obj_Opciones) && obj_Opciones.options_open)) {
+        draw_text_transformed(75 * sx, 615 * sy, "Privacidad", 1.7 * sx, 1.7 * sy, 0);
+    }
 } else {
     draw_set_colour(c_black);
     draw_rectangle(25 * sx, 20 * sy, 1255 * sx, 700 * sy, false);
