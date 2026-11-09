@@ -27,7 +27,7 @@ Cada alumno acepta la invitación e instala el juego con la **misma cuenta de Go
 |---|---|---|---|
 | 0.1.0 (1000) | [`5808e2c`](https://github.com/gabrielhuav/Five-Nights-at-ESCOM/commit/5808e2cb625a4474795ee57045965a12ba40d076) | Primera versión Android: Noche 1, aviso de privacidad sin conexión, ícono rojo de pixel art y permisos mínimos | Enviada el 24 oct 2026; disponible en la prueba cerrada |
 | 0.1.1 (1001) | [`0adaaaa`](https://github.com/gabrielhuav/Five-Nights-at-ESCOM/commit/0adaaaab73c1bdc666d347904d1fdbdf3878a52c) | Noche 2 con el Intruso, guardado de progreso y botón **Continuar** | Enviada a revisión el 7 nov 2026; el propietario informó su lanzamiento el 8 nov 2026 |
-| Desarrollo (`main`) | — | 0.1.1 + menú de pausa, apagón por batería y atajo de noche ([PR #2](https://github.com/gabrielhuav/Five-Nights-at-ESCOM/pull/2)) | Sin compilar ni publicar |
+| Desarrollo (`main`) | — | 0.1.1 + menú de pausa, apagón por batería y atajo de noche ([PR #2](https://github.com/gabrielhuav/Five-Nights-at-ESCOM/pull/2)); en revisión: panel de Opciones y pausa táctil ([PR #6](https://github.com/gabrielhuav/Five-Nights-at-ESCOM/pull/6)) | Sin compilar ni publicar |
 
 Requiere Android 7.0 (API 24) o posterior; objetivo API 36, ARM64. No tiene anuncios, cuentas, compras ni permisos de red: el progreso se guarda sólo en el dispositivo (`progreso.ini`).
 
@@ -60,7 +60,7 @@ Todas son capturas reales del juego: Galaxy S22+ durante la prueba de la 0.1.1 (
 | Abrir o cerrar cámaras | Barra azul inferior | — |
 | Cambiar de cámara | Botones CAM 01–19 | — |
 | Láser | Botón del láser | — |
-| Pausar o reanudar | Pendiente: aún no hay control táctil | ESC o P |
+| Pausar o reanudar | Botón de pausa (arriba, a la izquierda del centro) y «Reanudar» | ESC o P |
 | Salir al menú desde la pausa | Botón «Salir al Menú» | — |
 | Completar la noche (atajo de prueba) | — | Ctrl + Shift + N |
 
