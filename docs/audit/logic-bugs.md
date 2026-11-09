@@ -15,7 +15,7 @@ Severity and confidence follow the scale in [README.md](README.md#severity-and-c
   - **Save and load:** `ini_read_real` defaults to 0 when `progreso.ini` does not exist, and progress is written before the room change to `Win`.
   - **Missing-instance access:** objects that read `obj_Culturales1.x` run only in rooms where `obj_Culturales1` exists and is created first.
   - **Division by zero:** no reachable case.
-- **Run in the IDE:** the GameMaker command-line build (Igor, runtime 2026.0.0.23) stopped with `Permission Error : Unable to obtain permission to execute` because the IDE was not signed in. The game was then run from the signed-in IDE (GameMaker LTS 2026, Windows target, **Debug**), and LOGIC-01, LOGIC-02 and LOGIC-03 were reproduced on screen. The recordings are in [evidence/](evidence/).
+- **Run in the IDE:** the GameMaker command-line build (Igor, runtime 2026.0.0.23) stopped with `Permission Error : Unable to obtain permission to execute` because the IDE was not signed in. The game was then run from the signed-in IDE (GameMaker LTS 2026, Windows target, **Debug**), and LOGIC-01, LOGIC-02 and LOGIC-03 were reproduced on screen. The recordings are attached to [this comment on the audit pull request](https://github.com/gabrielhuav/Five-Nights-at-ESCOM/pull/5#issuecomment-6732158785).
 - **Refuted by running the game:** an earlier finding claimed that the persistent `obj_Coco` (`objects/obj_Coco/obj_Coco.yy:15` `"persistent":true,`), placed in `MenuPrincipal`, adds one more instance on each return to the menu. After three returns to the menu, the debugger's **Instances** list still showed a single `obj_Coco`, so the finding was removed. IDs were not renumbered.
 
 | ID | Finding | Severity | Confidence |
@@ -49,7 +49,7 @@ Severity and confidence follow the scale in [README.md](README.md#severity-and-c
   - Found by a Claude subagent (Opus 5.5), which read the three End Step events and simulated them in Python.
   - Codex (GPT-6.1-sol) recomputed all six possible orders of the three End Step events. In every order, one of the two starting parities skips all thresholds. Example (camera, check, laser after 24 camera-only frames): the check sees 14375, 14373, … −1 and never sees 0.
   - Reproduced in the IDE with the laser and the camera on together. The debugger showed `Bateria` at −72, −708 and −1222 while the camera and the laser kept working, and `BatConteo` stayed at 5 (full icon) for the whole night: the check never matched any threshold.
-- **Evidence:** [evidence/logic-01-battery-below-zero.mp4](evidence/logic-01-battery-below-zero.mp4). The middle part is sped up 4×; the boxes mark `Bateria` in the debugger's **Globals** list.
+- **Evidence:** [recording of LOGIC-01](https://github.com/user-attachments/assets/45557966-d37d-461e-969a-1daad724803a). The middle part is sped up 4×; the boxes mark `Bateria` in the debugger's **Globals** list.
 - **Recommended fix (keeps Drag and Drop):**
   1. In `obj_BatCheck` End Step, replace the **Switch** with **If Variable** actions that use *less than or equal*, from the lowest threshold up:
      - `<= 0`: run everything the current `case 0` does.
@@ -83,7 +83,7 @@ Severity and confidence follow the scale in [README.md](README.md#severity-and-c
   - The menu track therefore loops on top of the night ambience until the player wins or loses.
   - `obj_MM_Empty/Create_0.gml:4` also calls `audio_stop_all();`, but before the menu music starts, so it does not help.
 - **How it was found and verified:** Claude subagent search for `audio_stop_all`, `audio_stop_sound` and `snd_MM`. Codex followed every stop and every event in `N2`, and found none that stops the menu music.
-- **Evidence:** [evidence/logic-02-menu-music-night2.mp4](evidence/logic-02-menu-music-night2.mp4), with sound: the menu, **Continue**, and the first seconds of Night 2.
+- **Evidence:** [recording of LOGIC-02](https://github.com/user-attachments/assets/4bc74eec-5142-463a-bddd-f34dbb15b9a1), with sound: the menu, **Continue**, and the first seconds of Night 2.
 - **Recommended fix:** in `obj_Culturales1` Create, add a **Stop Audio** action for `snd_MM` before the **Play Audio** of `snd_BKMusic`. `obj_Culturales1` is placed in both nights, so this covers Night 1 and Night 2.
 - **How to reproduce it today and check the fix:**
   1. Win Night 1 once, so that **Continue** is enabled, or create `progreso.ini` with `noche_ganada=1` in the `progreso` section. When the game runs from the IDE on Windows, the file goes in `%LOCALAPPDATA%\Five_Nights_at_ESCOM\`.
@@ -106,7 +106,7 @@ Severity and confidence follow the scale in [README.md](README.md#severity-and-c
 - **How it was found and verified:**
   - Found by a Claude subagent. Codex checked the manual and the `Create` reset.
   - Reproduced in the IDE by winning Night 2 twice in one session. In the recording, the first credits play the music; the second credits are digitally silent (−91 dB measured with `ffmpeg volumedetect`) until the player taps out of them.
-- **Evidence:** [evidence/logic-03-credits-silent-second-time.mp4](evidence/logic-03-credits-silent-second-time.mp4), with sound and captions. About a minute is cut out between the two wins: the return to the menu, **Continue** and the second change of the hour.
+- **Evidence:** [recording of LOGIC-03](https://github.com/user-attachments/assets/93483a9f-0ba9-48c7-87a5-ec229c7a401a), with sound and captions. About a minute is cut out between the two wins: the return to the menu, **Continue** and the second change of the hour.
 - **Recommended fix:**
   1. In `obj_WinManager` Alarm 1, store the id returned by **Play Audio** in an instance variable such as `snd_ty_voice`, using the action's *target* field.
   2. In Alarm 3, pass `snd_ty_voice` to **Audio Set Volume** instead of `snd_TY`.

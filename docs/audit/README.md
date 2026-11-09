@@ -106,14 +106,14 @@ These are the serious, cheap fixes. Each takes minutes in the IDE and does not c
 
 - `obj_BatCamara` and `obj_BatLaser` each subtract 1 per frame, while `obj_BatCheck` acts only on the exact values 0, 2880, 5760, 8640 and 11520 (`objects/obj_BatCheck/Step_2.gml:12` `case 0:`).
 - With both on, the battery falls by 2 per frame. Depending on its parity at that moment and on the order of the three End Step events, every threshold is skipped: the icon freezes and the camera and laser work all night.
-- Codex recomputed all six event orders and confirmed it. In the running game the debugger showed the battery at −1222 with the camera still on ([video](evidence/logic-01-battery-below-zero.mp4)).
+- Codex recomputed all six event orders and confirmed it. In the running game the debugger showed the battery at −1222 with the camera still on ([video](https://github.com/user-attachments/assets/45557966-d37d-461e-969a-1daad724803a)).
 - The fix keeps Drag and Drop: **If Variable** with *less than or equal*.
 
 **LOGIC-02 — The menu music plays during Night 2.**
 
 - `obj_MM_Empty` loops `snd_MM`. New game reaches Night 1 through room `N1`, whose `objN1_S` calls `audio_stop_all()`.
 - **Continue** goes straight to `N2` (`objects/obj_Continuar/Gesture_0.gml:6` `room_goto(N2);`), and nothing there stops the menu track.
-- Every player who continues hears both tracks until the night ends, as the recording shows ([video](evidence/logic-02-menu-music-night2.mp4)). One **Stop Audio** action in `obj_Culturales1` Create fixes both nights.
+- Every player who continues hears both tracks until the night ends, as the recording shows ([video](https://github.com/user-attachments/assets/4bc74eec-5142-463a-bddd-f34dbb15b9a1)). One **Stop Audio** action in `obj_Culturales1` Create fixes both nights.
 
 **DUP-01 — The camera logic is copied 19 times.**
 
@@ -147,7 +147,7 @@ The audit used two models from different providers, each checking the other's wo
   - One more was dropped as out of scope, because it described the branches of a local clone rather than the repository.
   - Several severities and counts were corrected.
   - Every quote was re-read against the file by the main session before it was written here.
-- **Running the game:** a command-line build (Igor) stopped at the licence check because the GameMaker installation was not signed in. The logic bugs were then tested by hand in the signed-in IDE (GameMaker LTS 2026, Windows target, **Debug**), using the debugger to read the battery and to move the clock forward. LOGIC-01, LOGIC-02 and LOGIC-03 were reproduced and recorded in [evidence/](evidence/); the `obj_Coco` finding was not.
+- **Running the game:** a command-line build (Igor) stopped at the licence check because the GameMaker installation was not signed in. The logic bugs were then tested by hand in the signed-in IDE (GameMaker LTS 2026, Windows target, **Debug**), using the debugger to read the battery and to move the clock forward. LOGIC-01, LOGIC-02 and LOGIC-03 were reproduced and recorded; the recordings are attached to [this comment on the audit pull request](https://github.com/gabrielhuav/Five-Nights-at-ESCOM/pull/5#issuecomment-6732158785); the `obj_Coco` finding was not.
 - **Not run:** nothing was run on an Android device, and no APK was built. Findings whose effect needs a device or a built APK stay `likely`, and each one includes the steps to check it.
 - **Repository state:** all searches ran on a clean checkout of `0adaaaa`, and nothing in the game was modified.
 
@@ -159,7 +159,7 @@ Each topic report lists, for every finding, its location and literal quote, how 
 - [dead-code.md](dead-code.md): DEAD-01 to DEAD-10
 - [performance.md](performance.md): PERF-01 to PERF-04
 - [logic-bugs.md](logic-bugs.md): LOGIC-01 to LOGIC-05 and LOGIC-07
-- [evidence/](evidence/): recordings of LOGIC-01, LOGIC-02 and LOGIC-03
+- [Recordings of LOGIC-01, LOGIC-02 and LOGIC-03](https://github.com/gabrielhuav/Five-Nights-at-ESCOM/pull/5#issuecomment-6732158785), attached to the audit pull request
 - [documentation.md](documentation.md): DOC-01 to DOC-06
 - [ci-and-git.md](ci-and-git.md): CI-01 to CI-03
 - [release-and-privacy.md](release-and-privacy.md): REL-01 to REL-03
