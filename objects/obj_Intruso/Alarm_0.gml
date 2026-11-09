@@ -1,3 +1,4 @@
+if (global.EnergyBlackout) exit;
 var siendo_visto = (global.CameraUp == 1 && global.CamaraActiva == camara_actual);
 
 if (siendo_visto) {
