@@ -8,6 +8,7 @@ var _old_colour = draw_get_colour();
 var _old_alpha = draw_get_alpha();
 var _old_halign = draw_get_halign();
 var _old_valign = draw_get_valign();
+var _old_font = draw_get_font();
 
 if (!global.game_paused) {
     // Pause button, hidden during the energy blackout.
@@ -35,6 +36,8 @@ if (!global.game_paused) {
     draw_set_colour(c_white);
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
+    // Use the bundled font with Spanish glyphs instead of the inherited font.
+    draw_set_font(fnt_Privacidad);
     draw_text_transformed(_ox + 640 * _s, _oy + 250 * _s, "JUEGO EN PAUSA", 2.5 * _s, 2.5 * _s, 0);
     draw_text_transformed(_ox + 640 * _s, _oy + 320 * _s, "Toca Reanudar o presiona ESC / P", 1.2 * _s, 1.2 * _s, 0);
 
@@ -55,3 +58,4 @@ draw_set_colour(_old_colour);
 draw_set_alpha(_old_alpha);
 draw_set_halign(_old_halign);
 draw_set_valign(_old_valign);
+draw_set_font(_old_font);
